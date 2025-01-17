@@ -1,0 +1,25 @@
+
+module tb_even_parity_generator;
+
+    reg  [3:0] data_in;
+    wire parity_bit;
+
+    
+    even_parity_generator uut (
+        .data_in(data_in),
+        .parity_bit(parity_bit)
+    );
+
+    initial begin
+    
+        $monitor("Time=%0t | Data_in=%b | Parity_bit=%b", $time, data_in, parity_bit);
+
+        data_in = 4'b0000; #10;  // Even parity (0 + parity_bit = 0)
+        data_in = 4'b0001; #10;  // Odd parity (1 + parity_bit = 2)
+        data_in = 4'b1010; #10;  // Even parity (2 + parity_bit = 2)
+        data_in = 4'b1111; #10;  // Odd parity (4 + parity_bit = 5)
+
+        $finish;
+    end
+
+endmodule
